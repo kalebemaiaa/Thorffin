@@ -1,6 +1,6 @@
-const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
-require('dotenv').config()
+const {Client,Collection} = require('discord.js');
+const{prefix,token} = require('./config.json')
+const fs = require('fs')
 
 const bot = new Client({
     intents:[
@@ -14,45 +14,51 @@ const bot = new Client({
     ]
 })
 
-const arquivosDeEventos = fs.readdirSync(`./eventos/`).filter(file=> file.endsWith(`.js`))
+//----------comando HANDLER----------
+bot.comandos = new Collection()
 
-for (const arquivo of arquivosDeEventos){
-    const evento = require(`./eventos/${arquivo}`)
-    if(evento.once){
-        bot.once(evento.name, (...args)=> evento.execute(...args))
-    }
-    else{
-        bot.on(evento.name, (...args)=>evento.execute(...args))
+const pasta_Comandos = fs.readdirSync('./comandos')
+
+for (const pasta of pasta_Comandos){
+    const subpastas_Comandos = fs.readdirSync(`./comandos/${pasta}`).filter(file=>file.endsWith(`.js`))
+    for(const arquivo of subpastas_Comandos){
+        const comando = require(`./comandos/${pasta}/${arquivo}`)
+        bot.comandos.set(comando.nome, comando)
     }
 }
+//----------END OF THE HANDLER-------
 
-//-----------cria a coleção comandos
-bot.comandos= new Collection()
 
-//-----------comando handler
-const arquivosDeComandos = fs.readdirSync(`./comandos`).filter(file => file.endsWith(`.js`));
+bot.on('messageCreate', async msg=>{
+    if (!msg.content.startsWith(prefix) || msg.author.bot||msg.channel.type==="DM") return;
 
-for (const arquivo of arquivosDeComandos){
-    const comando = require(`./comandos/${arquivo}`)
-    bot.comandos.set(comando.data.name, comando)
-}
+	const args = msg.content.slice(prefix.length).trim().split(/ +/);
+	const nomeDoComando = args.shift().toLowerCase();
 
-bot.on('interactionCreate',async interaction=>{
-    if(!interaction.isCommand())return;
+	if (!bot.comandos.has(nomeDoComando)) return;
 
-    const comando = bot.comandos.get(interaction.commandName)
+    const comando = bot.comandos.get(nomeDoComando)
 
+    if (comando.argumentos && !args.length) {
+        return msg.channel.send(`Você não colocou os argumentos necessários, ${msg.author}!`);
+    }
+	
     if(!comando)return
+    
 
-    try{
-        await comando.execute(interaction)
-    }
-    catch(err){
-        console.error(err);
-        await interaction.reply({content:`Houve um erro ao executar esse comando`, ephemeral:true
-    })
-    }
+    try {
+		comando.execute(msg,args,bot)
+	} catch (err) {
+		console.error(err);
+		msg.reply('Houve um erro ao tentar executar esse comando!');
+	}
 })
 
 
-bot.login(process.env.token)
+bot.once('ready',()=>{
+    console.log(`Thorfinn está pronto!`)
+    bot.user.setActivity(`Eu sou`)
+})
+
+
+bot.login(token)
