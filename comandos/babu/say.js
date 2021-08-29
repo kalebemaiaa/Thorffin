@@ -1,4 +1,4 @@
-const execute = (msg,args,bot)=>{
+const execute = (bot,msg,args)=>{
     const text = msg.content.split(' ').slice(1).join(' ');
     msg.channel.send(text)
 }

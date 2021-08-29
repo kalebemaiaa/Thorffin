@@ -1,4 +1,4 @@
-const execute = (msg,args,bot)=>{
+const execute = (bot,msg,args)=>{
     msg.reply(`PONG!`)
 }
 

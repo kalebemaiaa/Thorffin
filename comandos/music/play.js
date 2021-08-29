@@ -1,22 +1,22 @@
 const {emoji} = require('../../config.json')
 
-const execute = (msg,bot,args)=>{
+const execute =async (bot,msg,args)=>{
     bot.emotes = emoji
-    const string =  msg.content.split(' ').slice(1).join(' ');
-        if (!string) return msg.channel.send(`${bot.emotes.error} | Please enter a song url or query to search.`)
-        try {
-            bot.distube.play(msg, string)
-        } catch (e) {
-            msg.channel.send(`${bot.emotes.error} | Error: \`${e}\``)
-        }
+    const string =  args.join(' ')
+    try {
+        bot.distube.play(msg, string)
+    } 
+    catch (e) {
+        msg.channel.send(`${bot.emotes.error} | Error: \`${e}\``)
+    }
 }
 
 module.exports = {
     nome:`play`,
-    descrição:`Dá play em uma pusica`,
+    descrição:`Dá play em uma musica`,
     aliases:['p'],
     permissões:false,
-    argumentos:false,
+    argumentos:true,
     cooldown:0,
     inVoiceChannel:true,
     execute
