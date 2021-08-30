@@ -79,13 +79,13 @@ const status = queue =>
 bot.distube
     .on('playSong', (queue, song) =>
 		queue.textChannel.send(
-			`Playing \`${song.name}\` - \`${
+			`Tocando \`${song.name}\` - \`${
 				song.formattedDuration
-			}\`\nRequested by: ${song.user}\n${status(queue)}`,
+			}\`\nFoi pedido por: ${song.user}\n${status(queue)}`,
 		))
 	.on('addSong', (queue, song) =>
 		queue.textChannel.send(
-			`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`,
+			`${song.name} - \`${song.formattedDuration}\` adicionado a fila pelo usuário ${song.user}`,
 		))
 	.on('addList', (queue, playlist) =>
 		queue.textChannel.send(

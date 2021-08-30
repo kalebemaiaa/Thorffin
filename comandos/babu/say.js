@@ -7,7 +7,6 @@ module.exports = {
     nome:`say`,
     descrição:`Diz o que você quiser.`,
     aliases:[],
-    permissões:false,
     argumentos:true,
     cooldown:10,
     execute
