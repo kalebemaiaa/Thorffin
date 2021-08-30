@@ -1,6 +1,6 @@
-const {Client,Collection} = require('discord.js');
+const {Client,Collection, MessageEmbed} = require('discord.js');
 const bot = new Client({intents:['GUILDS','GUILD_MESSAGE_REACTIONS','GUILD_MESSAGES','GUILD_INVITES','GUILD_VOICE_STATES','GUILD_MEMBERS','GUILD_PRESENCES']})
-const{prefix,token,emoji} = require('./config.json')
+const{prefix,token,emoji,color} = require('./config.json')
 const fs = require('fs')
 
 //implementando distube
@@ -15,8 +15,6 @@ bot.distube = new DisTube.default(bot, {
 })
 
 bot.emotes = emoji
-
-//--fim
 bot.comandos = new Collection()
 bot.aliases = new Collection()
 
@@ -77,21 +75,59 @@ const status = queue =>
 
 //---EVENTOS DISTUBE
 bot.distube
-    .on('playSong', (queue, song) =>
-		queue.textChannel.send(
-			`Tocando \`${song.name}\` - \`${
-				song.formattedDuration
-			}\`\nFoi pedido por: ${song.user}\n${status(queue)}`,
-		))
-	.on('addSong', (queue, song) =>
-		queue.textChannel.send(
-			`${song.name} - \`${song.formattedDuration}\` adicionado a fila pelo usuário ${song.user}`,
-		))
-	.on('addList', (queue, playlist) =>
-		queue.textChannel.send(
-			`Added \`${playlist.name}\` playlist (${
-				playlist.songs.length
-			} songs) to queue\n${status(queue)}`,
-		))
+    .on('playSong', (queue, song) =>{
+		const embed= new MessageEmbed()
+		.setTitle(`${emoji.play}Play${emoji.play}`)
+		.setColor(`${color}`)
+		.addField(`Música:`,`${song.name}-${song.formattedDuration}`)
+		.setFooter(`${song.user.username} `, `${song.user.avatarURL()}`)
+		.setImage(`${song.thumbnail}`)
+
+		queue.textChannel.send({embeds: [embed] })
+	})
+	
+	.on('addSong', (queue, song) =>{
+		const embedqueue = new MessageEmbed()
+		.setTitle(`${emoji.success}Adicionada à fila ${emoji.success}`)
+		.setColor(`${color}`)
+		.addFields(
+			{name:`Nome da música:`,value:`${song.name}`, inline:false },
+			{name:`Duração`, value:`${song.formattedDuration}`,inline:false},
+			{name:`Status`,value:`${status(queue)}`,inline:false}
+		)
+		.setThumbnail(`${song.thumbnail}`)
+		.setFooter(`${song.user.username} `, `${song.user.avatarURL()}`)
+
+		queue.textChannel.send({embeds: [embedqueue] })
+	})
+	
+	.on('addList', (queue, playlist) =>{
+		const embedPlaylist = new MessageEmbed()
+		.setTitle(`${emoji.queue}Playlist${emoji.queue}`)
+		.setColor(`${color}`)
+		.addFields(
+			{name:`Playlist`,value:`${playlist.name}`, inline:false},
+			{name:`Nº de músicas:`,value:`\`${playlist.songs.length}\``, inline:false},
+			{name:`URL`,value:`${playlist.url}`, inline:false}
+		)
+		.setFooter(`${playlist.user.username}`, `${playlist.user.avatarURL()}`)
+		.setImage(`${playlist.thumbnail}`)
+		
+	queue.textChannel.send({embeds: [embedPlaylist] })
+	})
+	
+	.on("empty", (queue) => {
+		const tentandoEmbed = new MessageEmbed()
+		.setTitle(`VoiceChannel vazio`)
+		.setDescription(`Sem ninguem no canal de voz, estou desconectando.\n Quando precisar é só chamar ${emoji.alien}`)
+		.setColor(`${color}`)
+		queue.textChannel.send({embeds: [tentandoEmbed]})
+	}
+	)
+	.on("initQueue", queue => {
+		queue.autoplay = true;
+		queue.volume = 100;
+	});
+
 
 bot.login(token)

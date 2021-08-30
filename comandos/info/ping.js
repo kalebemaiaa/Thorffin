@@ -1,11 +1,11 @@
 const execute = (bot,msg,args)=>{
-    msg.reply(`PONG!`)
+    msg.reply(`🏓Sua latência é ${Date.now() - msg.createdTimestamp}ms. Já a latência API é ${Math.round(bot.ws.ping)}ms`)
 }
 
 module.exports = {
     nome:`ping`,
     descrição:`Mostra o seu ping`,
-    aliases:['pa'],
+    aliases:[],
     argumentos:false,
     cooldown:0,
     execute

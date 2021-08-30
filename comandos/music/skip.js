@@ -3,7 +3,6 @@ const execute = async (bot,msg,args)=>{
     if (!queue) return msg.channel.send(`${bot.emotes.error} | There is nothing in the queue right now!`)
     try {
         bot.distube.skip(msg)
-        msg.channel.send(`${bot.emotes.success} | Skipped! Now playing:\n${queue.songs[0].name}`)
     } catch (e) {
         msg.channel.send(`${bot.emotes.error} | ${e}`)
     }

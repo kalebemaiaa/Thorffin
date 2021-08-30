@@ -2,16 +2,12 @@
 const execute =async (bot,msg,args)=>{
     const queue = bot.distube.getQueue(msg)
 
-        if (!queue) return msg.channel.send(`${bot.emotes.error} | There is nothing in the queue right now!`)
-
+        if (!queue) return msg.channel.send(`${bot.emotes.error}Não há nenhum música em execução no momento.`)
         const volume = parseInt(args[0])
-
-        if (isNaN(volume)) return msg.channel.send(`${bot.emotes.error} | Please enter a valid number!`)
-
+        if (isNaN(volume)) return msg.channel.send(`${bot.emotes.error}Por favor coloque um número valido`)
         bot.distube.setVolume(msg, volume)
 
-        msg.channel.send(`${bot.emotes.success} | Volume set to \`${volume}\``)
-
+        msg.channel.send(`${bot.emotes.success} | Volume ajustado para \`${volume}\``)
 }
 
 module.exports = {
