@@ -34,7 +34,7 @@ for (const pasta of pasta_Comandos){
 //----EVENT READY----
 bot.once('ready',()=>{
     console.log(`Thorfinn está pronto!`)
-    bot.user.setActivity(`Virtual Studio Code`)
+    bot.user.setActivity(`MD chefe`,{type:'LISTENING'})
 })
 //----EVENT MSGCREATE----
 bot.on('messageCreate', async msg=>{
@@ -129,5 +129,21 @@ bot.distube
 		queue.volume = 100;
 	});
 
+//----GUIL MEMBER ADD
+bot.on('guildMemberAdd', (member)=>{
+	const embed = new MessageEmbed()
+	.setTitle(`WELCOME \`@${member.user.username}\``)
+	.setAuthor(`${member.guild.name}`)
+	.addField(`Sistema de cargos:`,`\`FACÇÔES\`\nExistem 4 principais facções:\n
+	STAZ-🦇\n
+	WOLF-🐺\n
+	HYDRA-🐙\n
+	BRAZ-🧛‍♀️\n
+	Vá no canal FACÇÕES e escolha a sua para ativar todas as funcionalidades do servidor.`)
+	.setThumbnail(`${member.user.avatarURL()}`)
+	.setImage(`https://c.tenor.com/SdhYgrUfIIEAAAAC/rimuru-tempest-laughing.gif`)
+	.setColor(color)
+	member.guild.channels.cache.find(c=>c.name==="⚓bem-vindo⚓").send({embeds:[embed]})
+})
 
 bot.login(token)
