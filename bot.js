@@ -3,6 +3,9 @@ const bot = new Client({intents:['GUILDS','GUILD_MESSAGE_REACTIONS','GUILD_MESSA
 const{prefix,token,emoji,color} = require('./config.json')
 const fs = require('fs')
 
+//array_to_save JSOn
+let commandos_listo_old = []
+
 //implementando distube
 const DisTube = require("distube")
 bot.distube = new DisTube.default(bot, { 
@@ -18,6 +21,7 @@ bot.emotes = emoji
 bot.comandos = new Collection()
 bot.aliases = new Collection()
 
+
 //----HANDLER----
 const pasta_Comandos = fs.readdirSync('./comandos')
 for (const pasta of pasta_Comandos){
@@ -26,11 +30,18 @@ for (const pasta of pasta_Comandos){
         const comando = require(`./comandos/${pasta}/${arquivo}`)
         console.log(`${arquivo.toLocaleUpperCase()} carregado`)
         bot.comandos.set(comando.nome, comando)
+		commandos_listo_old.push(comando)
         if(comando.aliases){
             comando.aliases.forEach(alias=> bot.aliases.set(alias, comando.nome))
         }
     }
 }
+
+//----SALVA COMMAND STRUCT IN JSON FILE
+const salvando_commands_em_json = JSON.stringify(commandos_listo_old)
+fs.writeFile("../Landing_Page_Thorfinn/all_commands_in_JSON.json", salvando_commands_em_json, function(err, result) {
+    if(err) console.log('error', err);
+});
 //----EVENT READY----
 bot.once('ready',()=>{
     console.log(`Thorfinn está pronto!`)
@@ -85,7 +96,6 @@ bot.distube
 
 		queue.textChannel.send({embeds: [embed] })
 	})
-	
 	.on('addSong', (queue, song) =>{
 		const embedqueue = new MessageEmbed()
 		.setTitle(`${emoji.success}Adicionada à fila ${emoji.success}`)
@@ -100,7 +110,6 @@ bot.distube
 
 		queue.textChannel.send({embeds: [embedqueue] })
 	})
-	
 	.on('addList', (queue, playlist) =>{
 		const embedPlaylist = new MessageEmbed()
 		.setTitle(`${emoji.queue}Playlist${emoji.queue}`)
@@ -115,7 +124,6 @@ bot.distube
 		
 	queue.textChannel.send({embeds: [embedPlaylist] })
 	})
-	
 	.on("empty", (queue) => {
 		const tentandoEmbed = new MessageEmbed()
 		.setTitle(`VoiceChannel vazio`)
@@ -129,21 +137,16 @@ bot.distube
 		queue.volume = 100;
 	});
 
-//----GUIL MEMBER ADD
+//----GUILD MEMBER ADD
 bot.on('guildMemberAdd', (member)=>{
 	const embed = new MessageEmbed()
-	.setTitle(`WELCOME \`@${member.user.username}\``)
-	.setAuthor(`${member.guild.name}`)
-	.addField(`Sistema de cargos:`,`\`FACÇÔES\`\nExistem 4 principais facções:\n
-	STAZ-🦇\n
-	WOLF-🐺\n
-	HYDRA-🐙\n
-	BRAZ-🧛‍♀️\n
-	Vá no canal FACÇÕES e escolha a sua para ativar todas as funcionalidades do servidor.`)
+	.setTitle(`いらっしゃいませ \nSeja bem vindo!\`@${member.user.username}\``)
+	.setAuthor(`${member.guild.name}`,member.guild.iconURL())
+	.addField(`ATENÇÃO!!`,`O server é livre para uso desde que observada algumas regras:\n\n(1)...Sem crimes (O FBI está de olho👀)\n\n(2)...Sem desrespeitar ninguem(Salvo se esse indivíduo pensar diferentemente -pode bater🥊👊)\n\n(3)...Se falar bem de Sword Art Online é ban sem direito a revisão`)
 	.setThumbnail(`${member.user.avatarURL()}`)
 	.setImage(`https://c.tenor.com/SdhYgrUfIIEAAAAC/rimuru-tempest-laughing.gif`)
 	.setColor(color)
-	member.guild.channels.cache.find(c=>c.name==="⚓bem-vindo⚓").send({embeds:[embed]})
+	member.guild.channels.cache.find(c=>c.name==="mulas").send({embeds:[embed]})
 })
 
 bot.login(token)
