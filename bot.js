@@ -6,6 +6,10 @@ const fs = require('fs')
 //array_to_save JSOn
 let commandos_listo_old = []
 
+module.exports = {
+	commandos_listo_old
+}
+
 //implementando distube
 const DisTube = require("distube")
 bot.distube = new DisTube.default(bot, { 
@@ -28,7 +32,6 @@ for (const pasta of pasta_Comandos){
     const subpastas_Comandos = fs.readdirSync(`./comandos/${pasta}`).filter(file=>file.endsWith(`.js`))
     for(const arquivo of subpastas_Comandos){
         const comando = require(`./comandos/${pasta}/${arquivo}`)
-        console.log(`${arquivo.toLocaleUpperCase()} carregado`)
         bot.comandos.set(comando.nome, comando)
 		commandos_listo_old.push(comando)
         if(comando.aliases){
@@ -43,9 +46,10 @@ fs.writeFile("../Landing_Page_Thorfinn/all_commands_in_JSON.json", salvando_comm
     if(err) console.log('error', err);
 });
 //----EVENT READY----
-bot.once('ready',()=>{
+bot.once('ready',()=>{	
     console.log(`Thorfinn está pronto!`)
-    bot.user.setActivity(`MD chefe`,{type:'LISTENING'})
+    bot.user.setActivity(`https://thorfinn.netlify.app/index.html`)
+
 })
 //----EVENT MSGCREATE----
 bot.on('messageCreate', async msg=>{

@@ -1,1 +1,10 @@
-[{"nome":"say","descrição":"Diz o que você quiser.","aliases":[],"argumentos":true,"cooldown":10},{"nome":"ping","descrição":"Mostra o seu ping","aliases":[],"argumentos":false,"cooldown":0},{"nome":"fila","descrição":"exibe a fila de músicas","aliases":[],"argumentos":false,"cooldown":0,"inVoiceChannel":true},{"nome":"filtro","descrição":"colocar um filtro","aliases":[""],"argumentos":true,"cooldown":0,"inVoiceChannel":true},{"nome":"play","descrição":"Dá play em uma musica","aliases":["p"],"argumentos":true,"cooldown":0,"inVoiceChannel":true},{"nome":"skip","aliases":[""],"argumentos":false,"descrição":"Passa para a próxima música","cooldown":0,"inVoiceChannel":true},{"nome":"stop","descrição":"para a música quee está tocando","aliases":[""],"argumentos":false,"cooldown":0,"inVoiceChannel":true},{"nome":"volume","descrição":"Muda o volume do bot","aliases":[""],"argumentos":true,"cooldown":0,"inVoiceChannel":true}]
+[
+    {"nome":"say","descrição":"Diz o que você quiser.","aliases":[],"argumentos":true,"cooldown":10},
+    {"nome":"ping","descrição":"Mostra o seu ping","aliases":[],"argumentos":false,"cooldown":0},
+    {"nome":"fila","descrição":"exibe a fila de músicas","aliases":[],"argumentos":false,"cooldown":0,"inVoiceChannel":true},
+    {"nome":"filtro","descrição":"colocar um filtro","aliases":[""],"argumentos":true,"cooldown":0,"inVoiceChannel":true},
+    {"nome":"play","descrição":"Dá play em uma musica","aliases":["p"],"argumentos":true,"cooldown":0,"inVoiceChannel":true},
+    {"nome":"skip","aliases":[""],"argumentos":false,"descrição":"Passa para a próxima música","cooldown":0,"inVoiceChannel":true},
+    {"nome":"stop","descrição":"para a música quee está tocando","aliases":[""],"argumentos":false,"cooldown":0,"inVoiceChannel":true},
+    {"nome":"volume","descrição":"Muda o volume do bot","aliases":[""],"argumentos":true,"cooldown":0,"inVoiceChannel":true}
+]
