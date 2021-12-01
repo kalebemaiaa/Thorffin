@@ -6,9 +6,11 @@ const execute = (bot,msg,args)=>{
 
 module.exports = {
     nome:`kiss`,
-    descrição:`beija um usuário`,
+    descricao:`beija um usuário`,
     aliases:[],
     argumentos:true,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'funny',
+    usage:'$kiss [@user_nickname]'
 }

@@ -3,9 +3,11 @@ const execute = (bot,msg,args)=>{
 }
 module.exports = {
     nome:`chatividade`,
-    descrição:`Muda a tividade description do bot`,
+    descricao:`Muda a tividade description do bot`,
     aliases:[],
     argumentos:false,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'config',
+    usage:'$chatividade [atividade]'
 }

@@ -5,9 +5,11 @@ const execute = async (bot,msg,args)=>{
 
 module.exports = {
     nome:`help`,
-    descrição:`Lista todos os comandos ou um específico`,
+    descricao:`Lista todos os comandos ou um específico`,
     aliases:[],
     argumentos:false,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'util',
+    usage:'$help'
 }

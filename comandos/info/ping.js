@@ -4,9 +4,11 @@ const execute = (bot,msg,args)=>{
 
 module.exports = {
     nome:`ping`,
-    descrição:`Mostra o seu ping`,
+    descricao:`Mostra o seu ping`,
     aliases:[],
     argumentos:false,
     cooldown:0,
-    execute
+    execute,
+    class_command: 'info',
+    usage:'$ping'
 }

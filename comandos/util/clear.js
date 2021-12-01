@@ -8,9 +8,11 @@ const execute = async (bot,msg,args)=>{
 }
 module.exports = {
     nome:`clear`,
-    descrição:`Limpa as mensagens digitas no chat`,
+    descricao:`Limpa as mensagens digitas no chat`,
     aliases:[],
     argumentos:false,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'util',
+    usage:'$clear [number]'
 }

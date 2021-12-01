@@ -19,9 +19,11 @@ const execute = (bot,msg,args)=>{
 
 module.exports = {
     nome:`8ball`,
-    descrição:`The antiga 8ball`,
+    descricao:`The antiga 8ball`,
     aliases:[],
     argumentos:true,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'funny',
+    usage:'$8ball [pergunta]'
 }

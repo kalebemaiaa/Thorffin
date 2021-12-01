@@ -28,9 +28,11 @@ const execute = (bot,msg,args)=>{
 
 module.exports = {
     nome:`ban`,
-    descrição:`bane um usuário`,
+    descricao:`bane um usuário`,
     aliases:[],
     argumentos:true,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'admin',
+    usage:'$ban [@user_nickname] [motivo]'
 }

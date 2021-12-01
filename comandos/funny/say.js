@@ -5,9 +5,11 @@ const execute = (bot,msg,args)=>{
 
 module.exports = {
     nome:`say`,
-    descrição:`Diz o que você quiser.`,
+    descricao:`Diz o que você quiser.`,
     aliases:[],
     argumentos:true,
     cooldown:10,
-    execute
+    execute,
+    class_command: 'funny',
+    usage:'$say [argumento]'
 }

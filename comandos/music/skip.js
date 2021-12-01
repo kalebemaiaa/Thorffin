@@ -12,8 +12,10 @@ module.exports = {
     nome: "skip",
     aliases:[''],
     argumentos:false,
-    descrição:"Passa para a próxima música",
+    descricao:"Passa para a próxima música",
     cooldown:0,
     inVoiceChannel:true,
-    execute
+    execute,
+    class_command: 'music',
+    usage:'$skip'
 }

@@ -9,10 +9,12 @@ const execute = async(bot,msg,args)=>{
 
 module.exports={
     nome:'filtro',
-    descrição:'colocar um filtro',
+    descricao:'colocar um filtro',
     aliases:[''],
     argumentos:true,
     cooldown:0,
     inVoiceChannel:true,
-    execute
+    execute,
+    class_command: 'music',
+    usage:'$filtro [nome]'
 }

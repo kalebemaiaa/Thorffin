@@ -31,10 +31,12 @@ const execute = async(bot,msg,args)=>{
 }
 module.exports={
     nome:`fila`,
-    descrição:`exibe a fila de músicas`,
+    descricao:`exibe a fila de músicas`,
     aliases:[],
     argumentos:false,
     cooldown:0,
     inVoiceChannel:true,
-    execute
+    execute,
+    class_command: 'music',
+    usage:'$fila'
 }

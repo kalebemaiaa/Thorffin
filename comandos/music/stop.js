@@ -8,10 +8,12 @@ const execute = async (bot,msg,args)=>{
 
 module.exports = {
     nome:'stop',
-    descrição:'para a música quee está tocando',
+    descricao:'para a música quee está tocando',
     aliases:[''],
     argumentos:false,
     cooldown:0,
     inVoiceChannel:true,
-    execute
+    execute,
+    class_command: 'music',
+    usage:'$stop'
 }

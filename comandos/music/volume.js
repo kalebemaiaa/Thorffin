@@ -12,10 +12,12 @@ const execute =async (bot,msg,args)=>{
 
 module.exports = {
     nome:`volume`,
-    descrição:`Muda o volume do bot`,
+    descricao:`Muda o volume do bot`,
     aliases:[''],
     argumentos:true,
     cooldown:0,
     inVoiceChannel:true,
-    execute
+    execute,
+    class_command: 'music',
+    usage:'$volume [number]'
 }
