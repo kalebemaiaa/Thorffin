@@ -150,7 +150,7 @@ bot.on('guildMemberAdd', (member)=>{
 	.setThumbnail(`${member.user.avatarURL()}`)
 	.setImage(`https://c.tenor.com/SdhYgrUfIIEAAAAC/rimuru-tempest-laughing.gif`)
 	.setColor(color)
-	member.guild.channels.cache.find(c=>c.name==="mulas").send({embeds:[embed]})
+	member.guild.channels.cache.find(c=>c.name==="🤩bem-vindo🤩").send({embeds:[embed]})
 })
 
 bot.login(token)
